@@ -1,0 +1,34 @@
+.calculator {
+  border: 1px black solid;
+  padding: 10px;
+  width: 400px;
+  height: 600px;
+  margin: 0 auto;
+  border-radius: 30px;
+}
+button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 0px;
+  background-color: rgb(182, 182, 182);
+  margin: 5px;
+}
+.equals {
+  background-color: rgb(222, 222, 222);
+}
+
+.clear {
+  background-color: rgba(0, 0, 0, 0.762);
+  color: white;
+}
+.display {
+  width: 350px;
+  height: 50px;
+  padding: 10px;
+  border: 0px;
+  margin: 10px;
+  border-radius: 20px;
+  background-color: rgb(60, 117, 249);
+  color: white;
+}
