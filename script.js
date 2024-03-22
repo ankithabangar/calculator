@@ -1,7 +1,21 @@
 let operand1;
 let operator;
 let operand2;
-const number = document.querySelector(".number");
+const display = document.querySelector(".display");
+const numbers = document.querySelectorAll(".number");
+let displayValue = "";
+
+numbers.forEach((number) =>
+  number.addEventListener("click", function () {
+    updateDisplay(number.textContent);
+  })
+);
+
+function updateDisplay(number) {
+  displayValue += number;
+  display.textContent = displayValue;
+  console.log(display.textContent);
+}
 
 function add(num1, num2) {
   let result = 0;
