@@ -1,12 +1,14 @@
+html,
 body {
-  background-color: #f5f7ff;
+  height: 100%;
 }
 
-h1 {
-  text-align: center;
-  font-size: 50px;
-  font-weight: 20px;
-  font-family: "Courier New", monospace;
+body {
+  background-color: #f5f7ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
 
 .calculator {
@@ -22,12 +24,6 @@ h1 {
   background-color: white;
 }
 
-.buttons {
-  margin: 0 auto;
-  padding: 10px;
-  justify-content: center;
-  align-items: center;
-}
 button {
   cursor: pointer;
   height: 80px;
@@ -42,15 +38,19 @@ button {
   box-shadow: 0 1px 5px 0 rgba(81, 81, 81, 0.2),
     0 1px 5px 0 rgba(96, 96, 96, 0.19);
 }
+
 .equals {
   background-color: #f5f7ff;
-  flex-grow: 3;
+  flex-grow: 2;
+  border-radius: 40px;
 }
 
-.clear {
+.clear,
+.allClear {
   background-color: rgba(30, 43, 84, 255);
   color: white;
 }
+
 .display {
   display: flex;
   flex-direction: column;
@@ -69,28 +69,42 @@ button {
   font-weight: bold;
 }
 
+.operator {
+  color: white;
+}
+
 .minus {
   background-color: #ff445a;
-  color: white;
 }
 
 .divide {
   background-color: #2388ff;
-  color: white;
 }
 .multiply {
+  align-content: center;
+  padding: 4px;
+  padding-top: 10px;
   background-color: #ffc803;
-  color: white;
+  text-align: center;
 }
 .add {
   background-color: #62de77;
-  color: white;
 }
-.number {
+.number,
+#modulus {
   background-color: #d8ddf0;
   color: #6f7691;
 }
 .lowestRow {
+  align-items: center;
+  align-content: center;
   display: flex;
-  gap: 8px;
+  width: 92.5%;
+  gap: 5px;
+}
+.point {
+  flex-shrink: 0;
+}
+.zero {
+  flex-shrink: 0;
 }

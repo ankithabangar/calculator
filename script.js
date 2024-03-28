@@ -1,6 +1,6 @@
-let operand1 = 0;
+let operand1 = "";
 let operator = "";
-let operand2 = 0;
+let operand2 = "";
 let displayValue = "";
 let result = 0;
 
@@ -10,8 +10,7 @@ const equals = document.querySelector(".equals");
 const operators = document.querySelectorAll(".operator");
 const clear = document.querySelector(".clear");
 const point = document.querySelector(".point");
-//const sqrt = document.querySelector(".sqrt");
-//const modulus = document.querySelector(".modulus");
+const allClear = document.querySelector(".allClear");
 
 point.addEventListener("click", () => {
   updateDisplay(".");
@@ -25,12 +24,12 @@ numbers.forEach((number) =>
 
 operators.forEach((operatorType) => {
   operatorType.addEventListener("click", () => {
-    if (operand1 !== 0 && operator !== "" && operand2 !== 0) {
+    if (operand1 !== "" && operator !== "" && operand2 !== "") {
       clearDisplay();
       operate(operand1, operator, operand2);
       console.log("Operand 1 when operator is clicked= ", operand1);
       console.log("The operator when operator is clicked= ", operator);
-      operand2 = 0;
+      operand2 = "";
     }
     operator = operatorType.textContent;
     console.log("Operand 1 when operator is clicked= ", operand1);
@@ -42,6 +41,8 @@ operators.forEach((operatorType) => {
 function updateDisplay(number) {
   displayValue += number;
   display.textContent = displayValue;
+  if (displayValue.includes(".")) point.disabled = true;
+  else point.disabled = false;
   if (operator !== "") {
     //So only during the first time when I enter the number it will be
     //considered as operand1 and the rest of the time it will be operand2
@@ -54,13 +55,6 @@ function updateDisplay(number) {
 }
 function round(num) {
   return Math.round(num * 100) / 100;
-}
-
-function squareRoot(num) {
-  result = Math.sqrt(num);
-  updateDisplay(result);
-  operand1 = result;
-  operator = "";
 }
 
 function add(num1, num2) {
@@ -93,12 +87,18 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
   if (num2 === 0) {
     display.textContent = "LMAO";
-    console.log(display.textContent);
-    num2 = 1;
-  }
-  console.log(num2);
-  result = round(num1 / num2);
+    result = 0;
+  } else result = round(num1 / num2);
   console.log("divide", result);
+  updateDisplay(result);
+  operand1 = result;
+  operator = "";
+  return result;
+}
+
+function modulus(num1, num2) {
+  result = round(num1 % num2);
+  console.log("modulus", result);
   updateDisplay(result);
   operand1 = result;
   operator = "";
@@ -119,8 +119,8 @@ function operate(operand1, operator, operand2) {
     case "/":
       divide(operand1, operand2);
       break;
-    case "√":
-      squareRoot(operand1);
+    case "%":
+      modulus(operand1, operand2);
       break;
   }
 }
@@ -129,23 +129,29 @@ function clearDisplay() {
 }
 
 function clearValues() {
-  operand1 = 0;
-  operand2 = 0;
+  operand1 = "";
+  operand2 = "";
   operator = "";
   displayValue = "";
   display.textContent = displayValue;
+  console.log("operand1", operand1, "operand2", operand2, "operator", operator);
 }
 
 equals.addEventListener("click", () => {
-  if (operand1 !== 0 && operator !== "" && operand2 !== 0) {
-    clearDisplay();
-    operate(operand1, operator, operand2);
-    console.log("Operand 1 when operator is clicked= ", operand1);
-    console.log("Operand2 when = is clicked= ", operand2);
-    console.log("The operator when operator is clicked= ", operator);
-    operand2 = 0;
-    clearDisplay();
-  }
+  clearDisplay();
+  operate(operand1, operator, operand2);
+  console.log("Operand 1 when operator is clicked= ", operand1);
+  console.log("Operand2 when = is clicked= ", operand2);
+  console.log("The operator when operator is clicked= ", operator);
+  operand2 = "";
+  clearDisplay();
 });
 
-clear.addEventListener("click", clearValues);
+clear.addEventListener("click", () => {
+  if (operand1 !== "" && operator !== "" && operand2 !== "") {
+    operand2 = "";
+    displayValue = "";
+    display.textContent = displayValue;
+  } else clearValues();
+});
+allClear.addEventListener("click", () => clearValues());
